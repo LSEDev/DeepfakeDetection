@@ -119,9 +119,10 @@ def main(_argv):
     for subdir in sorted(subdirectories):
        
         # create corresponding folders for cropped data and get all images in a given folder
+        if 'original' in subdir: x = 3
+        else: x = 7
+            
         try:
-            if 'original' in subdir: x = 3
-            else: x = 7
             os.mkdir(subdir.replace("images", "cropped_images"))
             images_lst = glob.glob(subdir + "/*.png")
             cropped_images_lst = []
@@ -134,10 +135,10 @@ def main(_argv):
             cropped_images_lst = [e[len(e)-8:len(e)] for e in cropped_images_lst]
             
             if len(images_lst) == len(cropped_images_lst):
-                print(subdir[len(subdir)-3:len(subdir)], "has already been generated")
+                print(subdir[len(subdir)-x:len(subdir)], "has already been generated")
                 continue
             else:
-                print(subdir[len(subdir)-3:len(subdir)])
+                print(subdir[len(subdir)-x:len(subdir)])
 
         # loop through each image in a given folder
         for img_path in sorted(images_lst):
