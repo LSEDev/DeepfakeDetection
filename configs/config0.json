@@ -1,0 +1,15 @@
+{
+    "architecture": "xception",
+    "epochs": 140,
+    "batch_size": 64,
+    "learning_rate_type": "increasing",
+    "learning_rate": 0.0006793649509513545,
+    "patience": 8,
+    "weight_initialisation": "noisy-student",
+    "optimiser": "adam",
+    "label_smoothing": 0.016666666666666666,
+    "momentum": 0.5,
+    "dropout": 0.5444444444444445,
+    "target_size": 256,
+    "class_weights": false
+}

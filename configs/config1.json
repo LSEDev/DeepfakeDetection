@@ -1,0 +1,15 @@
+{
+    "architecture": "efficientnet",
+    "epochs": 100,
+    "batch_size": 1024,
+    "learning_rate_type": "constant",
+    "learning_rate": 0.0002949448212754246,
+    "patience": 4,
+    "weight_initialisation": "xavier",
+    "optimiser": "adam",
+    "label_smoothing": 0.016666666666666666,
+    "momentum": 0.5,
+    "dropout": 0.23333333333333334,
+    "target_size": 256,
+    "class_weights": true
+}
