@@ -1,15 +1,17 @@
 {
-    "architecture": "xception",
+    "architecture": "efficientnet",
     "epochs": 140,
-    "batch_size": 64,
-    "learning_rate_type": "increasing",
-    "learning_rate": 0.0006793649509513545,
-    "patience": 8,
-    "weight_initialisation": "noisy-student",
+    "batch_size": 256,
+    "learning_rate_type": "cosine_decay",
+    "learning_rate": 0.0006547675102413338,
+    "patience": 6,
+    "weight_initialisation": "imagenet",
     "optimiser": "adam",
-    "label_smoothing": 0.016666666666666666,
-    "momentum": 0.5,
-    "dropout": 0.5444444444444445,
-    "target_size": 256,
-    "class_weights": false
+    "momentum": 0.1,
+    "nesterov": true,
+    "label_smoothing": 0.04,
+    "dropout": 0.0,
+    "target_size": 224,
+    "class_weights": true,
+    "warmup_epochs": 7
 }

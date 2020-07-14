@@ -20,11 +20,13 @@ param_grid = {
     'patience': list(range(2, 10, 2)),
     'weight_initialisation': ['imagenet', 'noisy-student', 'xavier'],
     'optimiser': ['sgd', 'adam'],
-    'label_smoothing': list(np.linspace(0.005, 0.04, 7)),
     'momentum': [0.1, 0.3, 0.5],
+    'nesterov': [True, False],
+    'label_smoothing': list(np.linspace(0.0, 0.04, 7)),
     'dropout': list(np.linspace(0, 0.7, num=10)),
     'target_size': [224,256],
-    'class_weights': [True, False]
+    'class_weights': [True, False],
+    'warmup_epochs': [3,5,7]
 }
 
 
