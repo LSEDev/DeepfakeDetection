@@ -18,10 +18,9 @@ import scipy.ndimage as ndi
 from six.moves import range
 import threading
 import warnings
-import tensorfllow as tf
 
 try:
-    from tf.keras import backend as K
+    import tensorflow.keras.backend as K
 except:
     pass
 
