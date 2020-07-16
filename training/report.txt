@@ -1,0 +1,169 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 19 files
+Detected 1 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: ../augmentations/deepaugment-master/deepaugment/objective.py
+--------------------------------------------------------------------------------
+../augmentations/deepaugment-master/deepaugment/objective.py:60:8: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: '../augmentations/deepaugment-master'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/test_environment.py'
+ outputting to '../augmentations/deepaugment_updated/test_environment.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/setup.py'
+ outputting to '../augmentations/deepaugment_updated/setup.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/run_full_model.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/run_full_model.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/childcnn.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/childcnn.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/controller.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/controller.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/wide_res_net.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/wide_res_net.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/image_generator.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/image_generator.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/objective.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/objective.py'
+--------------------------------------------------------------------------------
+
+60:8: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/deepaugment.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/deepaugment.py'
+--------------------------------------------------------------------------------
+
+6:9: INFO: Renamed 'tf.ConfigProto' to 'tf.compat.v1.ConfigProto'
+8:10: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/__init__.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/run.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/run.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/notebook.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/notebook.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/augmenter.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/augmenter.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/build_features.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/build_features.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/examples/cifar10_25_policies.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/examples/cifar10_25_policies.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/examples/run_on_pawprint_images.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/examples/run_on_pawprint_images.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/examples/run_full_model_on_pawprint_images.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/examples/run_full_model_on_pawprint_images.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/deepaugment/examples/cifar10_random_aug_w_full_model.py'
+ outputting to '../augmentations/deepaugment_updated/deepaugment/examples/cifar10_random_aug_w_full_model.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '../augmentations/deepaugment-master/docs/conf.py'
+ outputting to '../augmentations/deepaugment_updated/docs/conf.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
