@@ -127,7 +127,7 @@ class DeepAugment:
 
     def optimize(self, iterations=300):
         """Optimize objective function hyperparameters using controller and child model
-
+self.data
         Args:
             iterations (int): number of optimization iterations, which the child model will be run
 

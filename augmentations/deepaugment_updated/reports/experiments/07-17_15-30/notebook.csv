@@ -1,0 +1,17 @@
+loss,accuracy,val_loss,val_accuracy,trial_no,A_aug1_type,A_aug1_magnitude,A_aug2_type,A_aug2_magnitude,B_aug1_type,B_aug1_magnitude,B_aug2_type,B_aug2_magnitude,C_aug1_type,C_aug1_magnitude,C_aug2_type,C_aug2_magnitude,D_aug1_type,D_aug1_magnitude,D_aug2_type,D_aug2_magnitude,E_aug1_type,E_aug1_magnitude,E_aug2_type,E_aug2_magnitude,sample_no,mean_late_val_acc,epoch
+0.748,0.417,1.419,0.485,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,1,0.485,1
+0.686,0.583,4.877,0.5,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,2,0.5,1
+0.623,0.667,14.141,0.5,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,3,,1
+0.657,0.75,10.401,0.5,1,gamma-contrast,0.844,coarse-salt-pepper,0.847,brighten,0.384,translate-y,0.057,translate-y,0.478,add-to-hue-and-saturation,0.48,emboss,0.836,sharpen,0.648,emboss,0.957,rotate,0.87,1,,1
+0.67,0.5,11.742,0.5,1,gamma-contrast,0.844,coarse-salt-pepper,0.847,brighten,0.384,translate-y,0.057,translate-y,0.478,add-to-hue-and-saturation,0.48,emboss,0.836,sharpen,0.648,emboss,0.957,rotate,0.87,2,0.5,1
+0.722,0.5,5.912,0.5,1,gamma-contrast,0.844,coarse-salt-pepper,0.847,brighten,0.384,translate-y,0.057,translate-y,0.478,add-to-hue-and-saturation,0.48,emboss,0.836,sharpen,0.648,emboss,0.957,rotate,0.87,3,0.5,1
+0.813,0.5,7.409,0.5,2,dropout,0.801,coarse-dropout,0.679,fog,0.582,coarse-dropout,0.759,rotate,0.474,shear,0.737,translate-x,0.135,sharpen,0.15,translate-x,0.386,horizontal-flip,0.45,1,0.5,1
+0.752,0.333,5.12,0.5,1,brighten,0.902,gaussian-blur,0.97,invert,0.171,emboss,0.751,brighten,0.325,crop,0.634,vertical-flip,0.653,brighten,0.995,gamma-contrast,0.414,dropout,0.624,1,0.5,1
+0.637,0.583,3.239,0.5,1,brighten,0.902,gaussian-blur,0.97,invert,0.171,emboss,0.751,brighten,0.325,crop,0.634,vertical-flip,0.653,brighten,0.995,gamma-contrast,0.414,dropout,0.624,2,0.5,1
+0.702,0.5,4.045,0.5,1,brighten,0.902,gaussian-blur,0.97,invert,0.171,emboss,0.751,brighten,0.325,crop,0.634,vertical-flip,0.653,brighten,0.995,gamma-contrast,0.414,dropout,0.624,3,0.5,1
+0.65,0.667,6.628,0.5,2,sharpen,0.675,sharpen,0.778,horizontal-flip,0.663,crop,0.623,invert,0.972,coarse-salt-pepper,0.51,gaussian-blur,0.451,crop,0.442,vertical-flip,0.359,dropout,0.689,1,,1
+0.711,0.417,6.366,0.5,2,sharpen,0.675,sharpen,0.778,horizontal-flip,0.663,crop,0.623,invert,0.972,coarse-salt-pepper,0.51,gaussian-blur,0.451,crop,0.442,vertical-flip,0.359,dropout,0.689,2,0.5,1
+0.689,0.5,3.883,0.5,2,sharpen,0.675,sharpen,0.778,horizontal-flip,0.663,crop,0.623,invert,0.972,coarse-salt-pepper,0.51,gaussian-blur,0.451,crop,0.442,vertical-flip,0.359,dropout,0.689,3,0.5,1
+0.667,0.5,1.789,0.5,3,coarse-salt-pepper,0.918,translate-x,0.565,coarse-salt-pepper,0.509,horizontal-flip,0.921,gaussian-blur,0.278,crop,0.842,brighten,0.841,translate-y,0.398,gamma-contrast,0.165,emboss,0.146,1,0.5,1
+0.823,0.25,1.041,0.5,3,coarse-salt-pepper,0.918,translate-x,0.565,coarse-salt-pepper,0.509,horizontal-flip,0.921,gaussian-blur,0.278,crop,0.842,brighten,0.841,translate-y,0.398,gamma-contrast,0.165,emboss,0.146,2,0.5,1
+0.579,0.583,10.002,0.5,3,coarse-salt-pepper,0.918,translate-x,0.565,coarse-salt-pepper,0.509,horizontal-flip,0.921,gaussian-blur,0.278,crop,0.842,brighten,0.841,translate-y,0.398,gamma-contrast,0.165,emboss,0.146,3,0.5,1

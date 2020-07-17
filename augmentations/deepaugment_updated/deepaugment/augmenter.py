@@ -106,7 +106,7 @@ def transform(aug_type, magnitude, X):
     elif aug_type == "add-to-hue-and-saturation":
         X_aug = iaa.AddToHueAndSaturation(
             (int(-45 * magnitude), int(45 * magnitude))
-        ).augment_images(X)
+        ).augment_images(X.astype(np.uint8))
     elif aug_type == "coarse-salt-pepper":
         X_aug = iaa.CoarseSaltAndPepper(p=0.2, size_percent=magnitude).augment_images(X)
     elif aug_type == "grayscale":
@@ -154,18 +154,19 @@ def augment_by_policy(
 
         # transform that portion
         X_portion_aug = transform(hyperparams[i], hyperparams[i+1], X_portion)  # first transform
+        print(hyperparams[i])
 
-        assert (
-            X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
-        ), "first transform is unvalid"
+#         assert (
+#             X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
+#         ), "first transform is unvalid"
         np.clip(X_portion_aug, 0, 255, out=X_portion_aug)
 
         X_portion_aug = transform(
             hyperparams[i+2], hyperparams[i+3], X_portion_aug
         )  # second transform
-        assert (
-            X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
-        ), "second transform is unvalid"
+#         assert (
+#             X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
+#         ), "second transform is unvalid"
         np.clip(X_portion_aug, 0, 255, out=X_portion_aug)
 
         if all_X_portion_aug is None:

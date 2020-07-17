@@ -1,0 +1,5 @@
+trial_no,A_aug1_type,A_aug1_magnitude,A_aug2_type,A_aug2_magnitude,B_aug1_type,B_aug1_magnitude,B_aug2_type,B_aug2_magnitude,C_aug1_type,C_aug1_magnitude,C_aug2_type,C_aug2_magnitude,D_aug1_type,D_aug1_magnitude,D_aug2_type,D_aug2_magnitude,E_aug1_type,E_aug1_magnitude,E_aug2_type,E_aug2_magnitude,mean_late_val_acc,expected_accuracy_increase(%)
+1,gamma-contrast,0.844,coarse-salt-pepper,0.847,brighten,0.384,translate-y,0.057,translate-y,0.478,add-to-hue-and-saturation,0.48,emboss,0.836,sharpen,0.648,emboss,0.957,rotate,0.87,0.5,0.7500000000000007
+2,dropout,0.801,coarse-dropout,0.679,fog,0.582,coarse-dropout,0.759,rotate,0.474,shear,0.737,translate-x,0.135,sharpen,0.15,translate-x,0.386,horizontal-flip,0.45,0.5,0.7500000000000007
+3,coarse-salt-pepper,0.918,translate-x,0.565,coarse-salt-pepper,0.509,horizontal-flip,0.921,gaussian-blur,0.278,crop,0.842,brighten,0.841,translate-y,0.398,gamma-contrast,0.165,emboss,0.146,0.5,0.7500000000000007
+0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,0.4925,0.0
