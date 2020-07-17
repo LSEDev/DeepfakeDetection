@@ -1,0 +1,4 @@
+loss,accuracy,val_loss,val_accuracy,trial_no,A_aug1_type,A_aug1_magnitude,A_aug2_type,A_aug2_magnitude,B_aug1_type,B_aug1_magnitude,B_aug2_type,B_aug2_magnitude,C_aug1_type,C_aug1_magnitude,C_aug2_type,C_aug2_magnitude,D_aug1_type,D_aug1_magnitude,D_aug2_type,D_aug2_magnitude,E_aug1_type,E_aug1_magnitude,E_aug2_type,E_aug2_magnitude,sample_no,mean_late_val_acc,epoch
+4.151,0.484,0.695,0.49,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,1,0.49,1
+8.619,0.516,0.7,0.49,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,2,0.49,1
+7.229,0.487,0.693,0.51,0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,rotate,0.0,3,0.51,1
