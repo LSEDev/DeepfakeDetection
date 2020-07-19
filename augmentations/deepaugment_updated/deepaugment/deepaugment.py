@@ -14,6 +14,7 @@ from os.path import dirname, realpath
 import pathlib
 import logging
 import click
+import pickle
 
 file_path = realpath(__file__)
 dir_of_file = dirname(file_path)
@@ -140,6 +141,10 @@ self.data
             print("trial:", trial_no, "\n", trial_hyperparams)
             f_val = self.objective_func.evaluate(trial_no, trial_hyperparams)
             self.controller.tell(trial_hyperparams, f_val)
+            
+            # Save instance after each iteration
+            with open('deepaugment.pkl', 'wb') as output:
+                pickle.dump(self, output, pickle.HIGHEST_PROTOCOL)
 
         self.iterated += iterations  # update number of previous iterations
 
