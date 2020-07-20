@@ -12,18 +12,18 @@ import random
 import json
 
 param_grid = {
-    'architecture': ['xception', 'mobilenet', 'efficientnet', 'densenet'],
-    'epochs': list(range(20, 160, 20)),
+    'architecture': ['efficientnet'],
+    'epochs': [200],
     'batch_size': [4 ,8, 16, 32, 64, 128, 256, 512, 1024, 2048],
-    'learning_rate_type': ['constant', 'cosine_decay', 'increasing'],
-    'learning_rate': list(np.logspace(np.log10(0.00005), np.log10(0.005), base = 10, num = 1000)),
-    'patience': list(range(2, 10, 2)),
-    'weight_initialisation': ['imagenet', 'noisy-student', 'xavier'],
+    'learning_rate_type': ['constant', 'cosine_decay'], # implement percentage weighting
+    'learning_rate': [0.1, 0.01, 0.001, 0.0001, 0.00001],
+    'patience': [7],
+    'weight_initialisation': ['noisy-student'],
     'optimiser': ['sgd', 'adam'],
-    'momentum': [0.1, 0.3, 0.5],
+    'momentum': [0, 0.9, 0.99],
     'nesterov': [True, False],
-    'label_smoothing': list(np.linspace(0.0, 0.04, 7)),
-    'dropout': list(np.linspace(0, 0.7, num=10)),
+    'label_smoothing': [0, 0.01, 0.05],
+    'dropout': [0, 0.2, 0.5],
     'target_size': [224,256],
     'class_weights': [True, False],
     'warmup_epochs': [3,5,7]
