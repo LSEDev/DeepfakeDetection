@@ -7,9 +7,14 @@ Created on Mon Jul 13 20:02:51 2020
 """
 
 import numpy as np
+from numpy.random import choice
 import pandas as pd
 import random
 import json
+
+from numpy.random import choice
+choice([0, 0.9, 0.99], 1, p=[0.2,0.7,0.1])
+
 
 param_grid = {
     'architecture': ['efficientnet'],
@@ -21,11 +26,11 @@ param_grid = {
     'weight_initialisation': ['noisy-student'],
     'optimiser': ['sgd', 'adam'],
     'momentum': [0, 0.9, 0.99],
-    'nesterov': [True, False],
+    'nesterov': ['True', 'False'],
     'label_smoothing': [0, 0.01, 0.05],
     'dropout': [0, 0.2, 0.5],
-    'target_size': [224,256],
-    'class_weights': [True, False],
+    'target_size': [224],
+    'class_weights': ['True', 'False'],
     'warmup_epochs': [3,5,7]
 }
 
@@ -41,7 +46,25 @@ def random_search(param_grid, max_evals=200):
     for i in range(max_evals):
         
         # Choose random hyperparameters
-        hyperparameters = {k: random.sample(v, 1)[0] for k, v in param_grid.items()}
+# =============================================================================
+#         hyperparameters = {k: random.sample(v, 1)[0] for k, v in param_grid.items()}
+# =============================================================================
+        hyperparameters = {}
+        for k, v in param_grid.items():
+            if k=='batch_size':
+                hyperparameters[k] = choice(v, 1, p=[0.06]+[0.11]*8+[0.06])[0]
+            elif k=='learning_rate':
+                hyperparameters[k] = choice(v, 1, p=[0.08]+[0.23]*4)[0]
+            elif k=='nesterov':
+                hyperparameters[k] = choice(v, 1, p=[0.7, 0.3])[0]
+            elif k=='class_weights':
+                hyperparameters[k] = choice(v, 1, p=[0.95, 0.05])[0]
+            
+            else:
+                hyperparameters[k] = choice(v, 1)[0]
+                
+            if type(hyperparameters[k])==np.int64:
+                hyperparameters[k]=int(hyperparameters[k])
         
         # Fill in dataframe
         results.loc[i, :] = list(hyperparameters.values()) + ['-']
@@ -64,4 +87,4 @@ def sort(results):
     return results
 
 
-random_search(param_grid, max_evals = 2)
+random_search(param_grid, max_evals = 3)
