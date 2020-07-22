@@ -1021,6 +1021,7 @@ class DirectoryIterator(Iterator):
                                              self.class_indices, follow_links)))
         for res in results:
             classes, filenames = res.get()
+            #print(len(classes))
             self.classes[i:i + len(classes)] = classes
             self.filenames += filenames
             i += len(classes)
