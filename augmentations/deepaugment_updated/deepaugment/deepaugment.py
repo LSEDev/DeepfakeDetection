@@ -123,9 +123,9 @@ class DeepAugment:
         self.objective_func = Objective(
             self.data, self.child_model, self.notebook, self.config
         )
-        strategy = tf.distribute.MirroredStrategy()
-        with strategy.scope():
-            self._evaluate_objective_func_without_augmentation()
+#         strategy = tf.distribute.MirroredStrategy()
+#         with strategy.scope():
+        self._evaluate_objective_func_without_augmentation()
 
     def optimize(self, iterations=300):
         """Optimize objective function hyperparameters using controller and child model
@@ -140,9 +140,9 @@ self.data
         for trial_no in range(self.iterated + 1, self.iterated + iterations + 1):
             trial_hyperparams = self.controller.ask()
             print("trial:", trial_no, "\n", trial_hyperparams)
-            strategy = tf.distribute.MirroredStrategy()
-            with strategy.scope():
-                f_val = self.objective_func.evaluate(trial_no, trial_hyperparams)
+#             strategy = tf.distribute.MirroredStrategy()
+#             with strategy.scope():
+            f_val = self.objective_func.evaluate(trial_no, trial_hyperparams)
             self.controller.tell(trial_hyperparams, f_val)
             
 
