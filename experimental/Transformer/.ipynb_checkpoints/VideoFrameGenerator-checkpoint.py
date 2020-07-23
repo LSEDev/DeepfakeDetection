@@ -13,6 +13,12 @@ import cv2 as cv
 from math import floor
 import logging
 import re
+
+try:
+    from PIL import Image as pil_image
+except ImportError:
+    pil_image = None
+
 log = logging.getLogger()
 
 from tensorflow.keras.utils import Sequence
@@ -62,7 +68,7 @@ class VideoFrameGenerator(Sequence):
             split_val: float = None,
             nb_channel: int = 3,
             glob_pattern: str = './videos/{classname}/*.avi',
-            use_headers: bool = True,
+            use_headers: bool = False,
             *args,
             **kwargs):
 
@@ -208,33 +214,34 @@ class VideoFrameGenerator(Sequence):
             self.files_count,
             kind))
 
-    def count_frames(self, cap, name, force_no_headers=False):
+    def count_frames(self, name, force_no_headers=False):
         """ Count number of frame for video
         if it's not possible with headers """
         if not force_no_headers and name in self._framecounters:
             return self._framecounters[name]
-
-        total = cap.get(cv.CAP_PROP_FRAME_COUNT)
-
-        if force_no_headers or total < 0:
-            # headers not ok
-            total = 0
-            # TODO: we're unable to use CAP_PROP_POS_FRAME here
-            # so we open a new capture to not change the
-            # pointer position of "cap"
-            c = cv.VideoCapture(name)
-            while True:
-                grabbed, frame = c.read()
-                if not grabbed:
-                    # rewind and stop
-                    break
-                total += 1
+        #print(name)
+        #total = cap.get(cv.CAP_PROP_FRAME_COUNT)
+        total = len(os.listdir(name))
+        #if force_no_headers or total < 0:
+        #    # headers not ok
+        #    total = 0
+        #    # TODO: we're unable to use CAP_PROP_POS_FRAME here
+        #    # so we open a new capture to not change the
+        #    # pointer position of "cap"
+        #    c = cv.VideoCapture(name)
+        #    while True:
+        #        grabbed, frame = c.read()
+        #        if not grabbed:
+        #            # rewind and stop
+        #            break
+        #        total += 1
 
         # keep the result
         self._framecounters[name] = total
 
         return total
-
+    
+# not so relevant
     def _discover_classes(self):
         pattern = os.path.realpath(self.glob_pattern)
         pattern = re.escape(pattern)
@@ -259,7 +266,7 @@ class VideoFrameGenerator(Sequence):
             self.on_epoch_end()
 
         return elem
-
+# not relevant
     def get_validation_generator(self):
         """ Return the validation generator if you've provided split factor """
         return self.__class__(
@@ -273,7 +280,7 @@ class VideoFrameGenerator(Sequence):
             glob_pattern=self.glob_pattern,
             use_headers=self.use_video_header,
             _validation_data=self.validation)
-
+# not relevant
     def get_test_generator(self):
         """ Return the validation generator if you've provided split factor """
         return self.__class__(
@@ -334,8 +341,9 @@ class VideoFrameGenerator(Sequence):
             label = np.zeros(len(classes))
             col = classes.index(classname)
             label[col] = 1.
-
+            
             if video not in self.__frame_cache:
+                # this has to be changed!!!!!
                 frames = self._get_frames(
                     video,
                     nbframe,
@@ -361,7 +369,7 @@ class VideoFrameGenerator(Sequence):
             labels.append(label)
 
         return np.array(images), np.array(labels)
-
+# not so relevant
     def _get_classname(self, video: str) -> str:
         """ Find classname from video filename following the pattern """
 
@@ -381,46 +389,112 @@ class VideoFrameGenerator(Sequence):
         # and find all occurence
         classname = re.findall(pattern, video)[0]
         return classname
-
+    
+    def load_img(self, path, grayscale=False, target_size=None):
+        """Loads an image into PIL format.
+        # Arguments
+            path: Path to image file
+            grayscale: Boolean, whether to load the image as grayscale.
+            target_size: Either `None` (default to original size)
+                or tuple of ints `(img_height, img_width)`.
+        # Returns
+            A PIL Image instance.
+        # Raises
+            ImportError: if PIL is not available.
+        """
+        if pil_image is None:
+            raise ImportError('Could not import PIL.Image. '
+                              'The use of `array_to_img` requires PIL.')
+        img = pil_image.open(path)
+        if grayscale:
+            if img.mode != 'L':
+                img = img.convert('L')
+        else:
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+        if target_size:
+            hw_tuple = (target_size[1], target_size[0])
+            if img.size != hw_tuple:
+                img = img.resize(hw_tuple)
+        return img
+    
+    
     def _get_frames(self, video, nbframe, shape, force_no_headers=False):
-        cap = cv.VideoCapture(video)
-        total_frames = self.count_frames(cap, video, force_no_headers)
-        orig_total = total_frames
-        if total_frames % 2 != 0:
-            total_frames += 1
-        frame_step = floor(total_frames/(nbframe-1))
-        # TODO: fix that, a tiny video can have a frame_step that is
-        # under 1
-        frame_step = max(1, frame_step)
+        # cap to change to something else
+        
+        #for kk in range(self.frames_per_step):
+        #    for i in range(int(len(index_array)/self.frames_per_step)):
+        #        fname = self.filenames[index_array[i]]
+        #        img = load_img(os.path.join(self.directory, fname),
+        #                       grayscale=grayscale,
+        #                       target_size=self.target_size)
+        #        x = img_to_array(img, data_format=self.data_format)
+        #        x = self.image_data_generator.random_transform(x)
+        #        x = self.image_data_generator.standardize(x)
+        #        x = self.image_data_generator.change_dims(x) # my addition
+#
+        #        batch_x[i,kk] = x
+        
+        #cap = cv.VideoCapture(video)
+        total_frames = self.count_frames(video, force_no_headers)
+        
         frames = []
-        frame_i = 0
-
-        while True:
-            grabbed, frame = cap.read()
-            if not grabbed:
-                break
-
-            frame_i += 1
-            if frame_i == 1 or frame_i % frame_step == 0 or frame_i == orig_total:
-                # resize
-                frame = cv.resize(frame, shape)
-
-                # use RGB or Grayscale ?
-                if self.nb_channel == 3:
-                    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-                else:
-                    frame = cv.cvtColor(frame, cv.COLOR_RGB2GRAY)
-
-                # to np
-                frame = img_to_array(frame) * self.rescale
-
-                # keep frame
-                frames.append(frame)
-
+        for fname in sorted(os.listdir(video)):
+            path = video + '/' + fname
+            img = self.load_img(path, False, shape)
+            frame = img_to_array(img) * self.rescale
+            frames.append(frame)
+        
             if len(frames) == nbframe:
                 break
-
-        cap.release()
+        
+        # Could write recursive function, but this should do the trick
+        if len(frames) != nbframe:
+            for fname in sorted(os.listdir(video)):
+                path = video + '/' + fname
+                img = self.load_img(path, False, shape)
+                frame = img_to_array(img) * self.rescale
+                frames.append(frame)
+        
+                if len(frames) == nbframe:
+                    break
+        
+        #orig_total = total_frames
+        #if total_frames % 2 != 0:
+        #    total_frames += 1
+        #frame_step = floor(total_frames/(nbframe-1))
+        ## TODO: fix that, a tiny video can have a frame_step that is
+        ## under 1
+        #frame_step = max(1, frame_step)
+        #frames = []
+        #frame_i = 0
+#
+        #while True:
+        #    grabbed, frame = cap.read()
+        #    if not grabbed:
+        #        break
+#
+        #    frame_i += 1
+        #    if frame_i == 1 or frame_i % frame_step == 0 or frame_i == orig_total:
+        #        # resize
+        #        frame = cv.resize(frame, shape)
+#
+        #        # use RGB or Grayscale ?
+        #        if self.nb_channel == 3:
+        #            frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+        #        else:
+        #            frame = cv.cvtColor(frame, cv.COLOR_RGB2GRAY)
+#
+        #        # to np
+        #        frame = img_to_array(frame) * self.rescale
+#
+        #        # keep frame
+        #        frames.append(frame)
+#
+        #    if len(frames) == nbframe:
+        #        break
+        # can probably comment this out
+        #cap.release()
 
         if not force_no_headers and len(frames) != nbframe:
             # There is a problem here
