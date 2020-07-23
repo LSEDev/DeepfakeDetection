@@ -60,7 +60,7 @@ class VideoFrameGenerator(Sequence):
             nb_frames: int = 5,
             classes: list = None,
             batch_size: int = 16,
-            use_frame_cache: bool = False,
+         #   use_frame_cache: bool = False,
             target_shape: tuple = (224, 224),
             shuffle: bool = True,
             transformation: ImageDataGenerator = None,
@@ -124,10 +124,10 @@ class VideoFrameGenerator(Sequence):
         self.target_shape = target_shape
         self.nb_channel = nb_channel
         self.transformation = transformation
-        self.use_frame_cache = use_frame_cache
+     #   self.use_frame_cache = use_frame_cache
 
         self._random_trans = []
-        self.__frame_cache = {}
+      #  self.__frame_cache = {}
         self.files = []
         self.validation = []
         self.test = []
@@ -342,22 +342,23 @@ class VideoFrameGenerator(Sequence):
             col = classes.index(classname)
             label[col] = 1.
             
-            if video not in self.__frame_cache:
+            #if video not in self.__frame_cache:
                 # this has to be changed!!!!!
-                frames = self._get_frames(
-                    video,
-                    nbframe,
-                    shape,
-                    force_no_headers=not self.use_video_header)
-                if frames is None:
-                    # avoid failure, nevermind that video...
-                    continue
+            frames = self._get_frames(
+                video,
+                nbframe,
+                shape,
+                force_no_headers=not self.use_video_header)
+            #if frames is None:
+                # avoid failure, nevermind that video...
+            #    continue
 
-                # add to cache
-                self.__frame_cache[video] = frames
+            # add to cache
+            #self.__frame_cache[video] = frames
 
-            else:
-                frames = self.__frame_cache[video]
+            #else:
+            #    continue
+                #frames = self.__frame_cache[video]
 
             # apply transformation
             if transformation is not None:
@@ -440,24 +441,26 @@ class VideoFrameGenerator(Sequence):
         
         frames = []
         for fname in sorted(os.listdir(video)):
-            path = video + '/' + fname
-            img = self.load_img(path, False, shape)
-            frame = img_to_array(img) * self.rescale
-            frames.append(frame)
-        
-            if len(frames) == nbframe:
-                break
-        
-        # Could write recursive function, but this should do the trick
-        if len(frames) != nbframe:
-            for fname in sorted(os.listdir(video)):
+            if fname != '.ipynb_checkpoints':
                 path = video + '/' + fname
                 img = self.load_img(path, False, shape)
                 frame = img_to_array(img) * self.rescale
                 frames.append(frame)
-        
+            
                 if len(frames) == nbframe:
                     break
+        
+        # Could write recursive function, but this should do the trick
+        if len(frames) != nbframe:
+            for fname in sorted(os.listdir(video)):
+                if fname != '.ipynb_checkpoints':
+                    path = video + '/' + fname
+                    img = self.load_img(path, False, shape)
+                    frame = img_to_array(img) * self.rescale
+                    frames.append(frame)
+        
+                    if len(frames) == nbframe:
+                        break
         
         #orig_total = total_frames
         #if total_frames % 2 != 0:
