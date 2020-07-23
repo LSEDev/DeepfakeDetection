@@ -18,12 +18,17 @@ AUG_TYPES = [
     "gamma-contrast",
     "brighten",
     "invert",
-    "fog",
-    "clouds",
     "add-to-hue-and-saturation",
     "coarse-salt-pepper",
     "horizontal-flip",
     "vertical-flip",
+    "fog",
+    "clouds",
+    "histogram-equalize",
+    "super-pixels",
+    "perspective-transform",
+    "elastic-transform",
+    "grayscale"
 ]
 
 
