@@ -78,7 +78,7 @@ def transform(aug_type, magnitude, X):
         # X_aug = iaa.AllChannelsHistogramEqualization().augment_images(X)  # magnitude not used
         
         # new code:
-        X_aug iaa.AllChannelsHistogramEqualization().augment_images(X.astype(np.uint8))
+        X_aug = iaa.AllChannelsHistogramEqualization().augment_images(X.astype(np.uint8))
     #####################################################################
      
     #####################################################################
@@ -178,20 +178,25 @@ def augment_by_policy(
 
         # transform that portion
         X_portion_aug = transform(hyperparams[i], hyperparams[i+1], X_portion)  # first transform
-        print(hyperparams[i])
-
-#         assert (
-#             X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
-#         ), "first transform is unvalid"
+#         print(hyperparams[i])
         np.clip(X_portion_aug, 0, 255, out=X_portion_aug)
+
+        assert (
+            X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
+        ), "first transform is unvalid"
+
+        
 
         X_portion_aug = transform(
             hyperparams[i+2], hyperparams[i+3], X_portion_aug
         )  # second transform
-#         assert (
-#             X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
-#         ), "second transform is unvalid"
+#         print(hyperparams[i+2])
         np.clip(X_portion_aug, 0, 255, out=X_portion_aug)
+        assert (
+            X_portion_aug.min() >= -0.1 and X_portion_aug.max() <= 255.1
+        ), "second transform is unvalid"
+
+        
 
         if all_X_portion_aug is None:
             all_X_portion_aug = X_portion_aug

@@ -1,5 +1,6 @@
 # (C) 2019 Baris Ozmen <hbaristr@gmail.com>
 
+import tensorflow as tf
 from tensorflow.keras import optimizers, Model
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
@@ -69,6 +70,7 @@ class ChildCNN:
             validation_data=(X_val, y_val),
             shuffle=True,
             verbose=2,
+            workers=100
         )
         return record.history
 
@@ -237,33 +239,35 @@ class ChildCNN:
 
         :return:
         """
-        model = Sequential()
-        model.add(Conv2D(32, (3, 3), padding="same", input_shape=self.input_shape))
-        model.add(Activation("relu"))
-        model.add(Conv2D(32, (3, 3)))
-        model.add(Activation("relu"))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.6))
+        strategy = tf.distribute.MirroredStrategy()
+        with strategy.scope():
+            model = Sequential()
+            model.add(Conv2D(32, (3, 3), padding="same", input_shape=self.input_shape))
+            model.add(Activation("relu"))
+            model.add(Conv2D(32, (3, 3)))
+            model.add(Activation("relu"))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
+            model.add(Dropout(0.6))
 
-        model.add(Conv2D(64, (3, 3), padding="same"))
-        model.add(Activation("relu"))
-        model.add(Conv2D(64, (3, 3)))
-        model.add(Activation("relu"))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.6))
+            model.add(Conv2D(64, (3, 3), padding="same"))
+            model.add(Activation("relu"))
+            model.add(Conv2D(64, (3, 3)))
+            model.add(Activation("relu"))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
+            model.add(Dropout(0.6))
 
-        model.add(Flatten())
-        model.add(Dense(512))
-        model.add(Activation("relu"))
-        model.add(Dropout(0.5))
-        model.add(Dense(self.num_classes))
-        model.add(Activation("softmax"))
+            model.add(Flatten())
+            model.add(Dense(256))
+            model.add(Activation("relu"))
+            model.add(Dropout(0.5))
+            model.add(Dense(self.num_classes))
+            model.add(Activation("softmax"))
 
-        optimizer = optimizers.RMSprop(lr=0.001, decay=1e-6)
-        # optimizer = optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.0)
-        model.compile(
-            optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"]
-        )
-        print("BasicCNN model built as child model.\n Model summary:")
-        print(model.summary())
-        return model
+            optimizer = optimizers.RMSprop(lr=0.001, decay=1e-6)
+            # optimizer = optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.0)
+            model.compile(
+                optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"]
+            )
+            print("BasicCNN model built as child model.\n Model summary:")
+            print(model.summary())
+            return model
