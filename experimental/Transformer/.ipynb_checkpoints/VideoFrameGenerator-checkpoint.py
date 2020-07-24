@@ -64,11 +64,11 @@ class VideoFrameGenerator(Sequence):
             target_shape: tuple = (224, 224),
             shuffle: bool = True,
             transformation: ImageDataGenerator = None,
-            split_test: float = None,
-            split_val: float = None,
+            #split_test: float = None,
+            #split_val: float = None,
             nb_channel: int = 3,
             glob_pattern: str = './videos/{classname}/*.avi',
-            use_headers: bool = False,
+            #use_headers: bool = False,
             *args,
             **kwargs):
 
@@ -101,17 +101,17 @@ class VideoFrameGenerator(Sequence):
         assert len(target_shape) == 2
 
         # split factor should be a propoer value
-        if split_val is not None:
-            assert 0.0 < split_val < 1.0
+#if split_val is not None:
+#    assert 0.0 < split_val < 1.0
 
-        if split_test is not None:
-            assert 0.0 < split_test < 1.0
+#if split_test is not None:
+#    assert 0.0 < split_test < 1.0
 
-        self.use_video_header = use_headers
+#self.use_video_header = use_headers
 
-        # then we don't need None anymore
-        split_val = split_val if split_val is not None else 0.0
-        split_test = split_test if split_test is not None else 0.0
+## then we don't need None anymore
+#split_val = split_val if split_val is not None else 0.0
+#split_test = split_test if split_test is not None else 0.0
 
         # be sure that classes are well ordered
         classes.sort()
@@ -129,68 +129,67 @@ class VideoFrameGenerator(Sequence):
         self._random_trans = []
       #  self.__frame_cache = {}
         self.files = []
-        self.validation = []
-        self.test = []
+        #self.validation = []
+        #self.test = []
 
-        _validation_data = kwargs.get('_validation_data', None)
-        _test_data = kwargs.get('_test_data', None)
+        #_validation_data = kwargs.get('_validation_data', None)
+        #_test_data = kwargs.get('_test_data', None)
+#
+        #if _validation_data is not None:
+        #    # we only need to set files here
+        #    self.files = _validation_data
+#
+        #elif _test_data is not None:
+        #    # we only need to set files here
+        #    self.files = _test_data
+#
+        #else:
+        #    if split_val > 0 or split_test > 0:
+        #        for cls in classes:
+        #            files = glob.glob(glob_pattern.format(classname=cls))
+        #            nbval = 0
+        #            nbtest = 0
+        #            info = []
+#
+        #            # generate validation and test indexes
+        #            indexes = np.arange(len(files))
+#
+        #            if shuffle:
+        #                np.random.shuffle(indexes)
+#
+        #            if 0.0 < split_val < 1.0:
+        #                nbval = int(split_val * len(files))
+        #                nbtrain = len(files) - nbval
+#
+        #                # get some sample for validation_data
+        #                val = np.random.permutation(indexes)[:nbval]
+#
+        #                # remove validation from train
+        #                indexes = np.array(
+        #                    [i for i in indexes if i not in val])
+        #                self.validation += [files[i] for i in val]
+        #                info.append("validation count: %d" % nbval)
+#
+        #            if 0.0 < split_test < 1.0:
+        #                nbtest = int(split_test * nbtrain)
+        #                nbtrain = len(files) - nbval - nbtest
+#
+        #                # get some sample for test_data
+        #                val_test = np.random.permutation(indexes)[:nbtest]
+#
+        #                # remove test from train
+        #                indexes = np.array(
+        #                    [i for i in indexes if i not in val_test])
+        #                self.test += [files[i] for i in val_test]
+        #                info.append("test count: %d" % nbtest)
+#
+        #            # and now, make the file list
+        #            self.files += [files[i] for i in indexes]
+        #            print("class %s, %s, train count: %d" %
+        #                  (cls, ", ".join(info), nbtrain))
 
-        if _validation_data is not None:
-            # we only need to set files here
-            self.files = _validation_data
-
-        elif _test_data is not None:
-            # we only need to set files here
-            self.files = _test_data
-
-        else:
-            if split_val > 0 or split_test > 0:
-                for cls in classes:
-                    files = glob.glob(glob_pattern.format(classname=cls))
-                    nbval = 0
-                    nbtest = 0
-                    info = []
-
-                    # generate validation and test indexes
-                    indexes = np.arange(len(files))
-
-                    if shuffle:
-                        np.random.shuffle(indexes)
-
-                    if 0.0 < split_val < 1.0:
-                        nbval = int(split_val * len(files))
-                        nbtrain = len(files) - nbval
-
-                        # get some sample for validation_data
-                        val = np.random.permutation(indexes)[:nbval]
-
-                        # remove validation from train
-                        indexes = np.array(
-                            [i for i in indexes if i not in val])
-                        self.validation += [files[i] for i in val]
-                        info.append("validation count: %d" % nbval)
-
-                    if 0.0 < split_test < 1.0:
-                        nbtest = int(split_test * nbtrain)
-                        nbtrain = len(files) - nbval - nbtest
-
-                        # get some sample for test_data
-                        val_test = np.random.permutation(indexes)[:nbtest]
-
-                        # remove test from train
-                        indexes = np.array(
-                            [i for i in indexes if i not in val_test])
-                        self.test += [files[i] for i in val_test]
-                        info.append("test count: %d" % nbtest)
-
-                    # and now, make the file list
-                    self.files += [files[i] for i in indexes]
-                    print("class %s, %s, train count: %d" %
-                          (cls, ", ".join(info), nbtrain))
-
-            else:
-                for cls in classes:
-                    self.files += glob.glob(glob_pattern.format(classname=cls))
+        for cls in classes:
+            self.files += glob.glob(glob_pattern.format(classname=cls))
 
         # build indexes
         self.files_count = len(self.files)
@@ -202,44 +201,44 @@ class VideoFrameGenerator(Sequence):
             self.on_epoch_end()
 
         kind = "train"
-        if _validation_data is not None:
-            kind = "validation"
-        elif _test_data is not None:
-            kind = "test"
+        #if _validation_data is not None:
+        #    kind = "validation"
+        #elif _test_data is not None:
+        #    kind = "test"
 
         self._current = 0
-        self._framecounters = {}
+       # self._framecounters = {}
         print("Total data: %d classes for %d files for %s" % (
             self.classes_count,
             self.files_count,
             kind))
 
-    def count_frames(self, name, force_no_headers=False):
-        """ Count number of frame for video
-        if it's not possible with headers """
-        if not force_no_headers and name in self._framecounters:
-            return self._framecounters[name]
-        #print(name)
-        #total = cap.get(cv.CAP_PROP_FRAME_COUNT)
-        total = len(os.listdir(name))
-        #if force_no_headers or total < 0:
-        #    # headers not ok
-        #    total = 0
-        #    # TODO: we're unable to use CAP_PROP_POS_FRAME here
-        #    # so we open a new capture to not change the
-        #    # pointer position of "cap"
-        #    c = cv.VideoCapture(name)
-        #    while True:
-        #        grabbed, frame = c.read()
-        #        if not grabbed:
-        #            # rewind and stop
-        #            break
-        #        total += 1
-
-        # keep the result
-        self._framecounters[name] = total
-
-        return total
+    #def count_frames(self, name, force_no_headers=False):
+    #    """ Count number of frame for video
+    #    if it's not possible with headers """
+    #    if not force_no_headers and name in self._framecounters:
+    #        return self._framecounters[name]
+    #    #print(name)
+    #    #total = cap.get(cv.CAP_PROP_FRAME_COUNT)
+    #    total = len(os.listdir(name))
+    #    #if force_no_headers or total < 0:
+    #    #    # headers not ok
+    #    #    total = 0
+    #    #    # TODO: we're unable to use CAP_PROP_POS_FRAME here
+    #    #    # so we open a new capture to not change the
+    #    #    # pointer position of "cap"
+    #    #    c = cv.VideoCapture(name)
+    #    #    while True:
+    #    #        grabbed, frame = c.read()
+    #    #        if not grabbed:
+    #    #            # rewind and stop
+    #    #            break
+    #    #        total += 1
+#
+    #    # keep the result
+    #    self._framecounters[name] = total
+#
+    #    return total
     
 # not so relevant
     def _discover_classes(self):
@@ -278,7 +277,7 @@ class VideoFrameGenerator(Sequence):
             shuffle=self.shuffle,
             rescale=self.rescale,
             glob_pattern=self.glob_pattern,
-            use_headers=self.use_video_header,
+           # use_headers=self.use_video_header,
             _validation_data=self.validation)
 # not relevant
     def get_test_generator(self):
@@ -292,7 +291,7 @@ class VideoFrameGenerator(Sequence):
             shuffle=self.shuffle,
             rescale=self.rescale,
             glob_pattern=self.glob_pattern,
-            use_headers=self.use_video_header,
+          #  use_headers=self.use_video_header,
             _test_data=self.test)
 
     def on_epoch_end(self):
@@ -347,8 +346,7 @@ class VideoFrameGenerator(Sequence):
             frames = self._get_frames(
                 video,
                 nbframe,
-                shape,
-                force_no_headers=not self.use_video_header)
+                shape)
             #if frames is None:
                 # avoid failure, nevermind that video...
             #    continue
@@ -370,7 +368,7 @@ class VideoFrameGenerator(Sequence):
             labels.append(label)
 
         return np.array(images), np.array(labels)
-# not so relevant
+
     def _get_classname(self, video: str) -> str:
         """ Find classname from video filename following the pattern """
 
@@ -420,7 +418,7 @@ class VideoFrameGenerator(Sequence):
         return img
     
     
-    def _get_frames(self, video, nbframe, shape, force_no_headers=False):
+    def _get_frames(self, video, nbframe, shape):
         # cap to change to something else
         
         #for kk in range(self.frames_per_step):
@@ -437,7 +435,7 @@ class VideoFrameGenerator(Sequence):
         #        batch_x[i,kk] = x
         
         #cap = cv.VideoCapture(video)
-        total_frames = self.count_frames(video, force_no_headers)
+        #total_frames = self.count_frames(video, force_no_headers)
         
         frames = []
         for fname in sorted(os.listdir(video)):
@@ -499,23 +497,23 @@ class VideoFrameGenerator(Sequence):
         # can probably comment this out
         #cap.release()
 
-        if not force_no_headers and len(frames) != nbframe:
-            # There is a problem here
-            # That means that frame count in header is wrong or broken,
-            # so we need to force the full read of video to get the right
-            # frame counter
-            return self._get_frames(
-                    video,
-                    nbframe,
-                    shape,
-                    force_no_headers=True)
-
-        if force_no_headers and len(frames) != nbframe:
-            # and if we really couldn't find the real frame counter
-            # so we return None. Sorry, nothing can be done...
-            log.error("Frame count is not OK for video %s, "
-                      "%d total, %d extracted" % (
-                        video, total_frames, len(frames)))
-            return None
+        #if not force_no_headers and len(frames) != nbframe:
+        #    # There is a problem here
+        #    # That means that frame count in header is wrong or broken,
+        #    # so we need to force the full read of video to get the right
+        #    # frame counter
+        #    return self._get_frames(
+        #            video,
+        #            nbframe,
+        #            shape,
+        #            force_no_headers=True)
+#
+        #if force_no_headers and len(frames) != nbframe:
+        #    # and if we really couldn't find the real frame counter
+        #    # so we return None. Sorry, nothing can be done...
+        #    log.error("Frame count is not OK for video %s, "
+        #              "%d total, %d extracted" % (
+        #                video, total_frames, len(frames)))
+        #    return None
 
         return np.array(frames)
