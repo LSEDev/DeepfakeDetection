@@ -136,6 +136,8 @@ class ChildCNN:
         if isinstance(self.config["model"], str):
             if self.config["model"].lower() == "basiccnn":
                 return self.build_basicCNN()
+            if self.config["model"].lower() == "efficientnet":
+                return self.build_efficientnet()
             elif self.config["model"].lower().startswith("wrn"):
                 return self.build_wrn()
             elif self.config["model"].lower() in ("mobilenetv2","inceptionv3"):
@@ -270,4 +272,35 @@ class ChildCNN:
             )
             print("BasicCNN model built as child model.\n Model summary:")
             print(model.summary())
+            return model
+
+    def build_efficientnet(self):
+        """Builds efficient model with dense layers on top
+
+        Returns:
+            keras.models.Model
+
+        :return:
+        """
+        from efficientnet.tfkeras import EfficientNetB0
+        strategy = tf.distribute.MirroredStrategy()
+        with strategy.scope():
+            conv_base = EfficientNetB0(weights='noisy-student', include_top=False,
+                        input_shape=(224,224,3))
+            
+            outputconv_base = conv_base.output
+            t_flat = Flatten()(outputconv_base)
+            t_dense1 = Dense(1024, activation='relu')(t_flat)
+            t_dense2 = Dense(256, activation='relu')(t_dense1)
+            t_dense3 = Dense(128, activation='relu')(t_dense2)
+            t_do = Dropout(0.5)(t_dense3)
+            predictions = Dense(2, activation= 'softmax')(t_do)
+
+            model = Model(inputs=conv_base.input, outputs=predictions, name = 'model')
+            conv_base.trainable = False
+            opt = tf.keras.optimizers.Adam(learning_rate=0.0002)
+            
+            model.compile(loss=tf.keras.losses.BinaryCrossentropy(label_smoothing=0.01),
+                          optimizer=opt,metrics=['accuracy'])
+            
             return model
