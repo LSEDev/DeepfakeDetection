@@ -22,6 +22,7 @@ param_grid = {
     'batch_size': [4 ,8, 16, 32, 64, 128, 256, 512, 1024, 2048],
     'learning_rate_type': ['constant', 'cosine_decay'], # implement percentage weighting
     'learning_rate': [0.1, 0.01, 0.001, 0.0001, 0.00001],
+    'weight_decay':[0, 1e-3, 1e-4, 1e-5],
     'patience': [7],
     'weight_initialisation': ['noisy-student'],
     'optimiser': ['sgd', 'adam'],

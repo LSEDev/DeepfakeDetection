@@ -18,10 +18,18 @@ choice([0, 0.9, 0.99], 1, p=[0.2,0.7,0.1])
 
 param_grid = {
     'architecture': ['efficientnet'],
+<<<<<<< HEAD
+    'epochs': [200],
+    'batch_size': [4 ,8, 16, 32, 64, 128, 256, 512, 1024, 2048],
+    'learning_rate_type': ['constant', 'cosine_decay'], # implement percentage weighting
+    'learning_rate': [0.1, 0.01, 0.001, 0.0001, 0.00001],
+    'weight_decay':[0, 1e-3, 1e-4, 1e-5],
+=======
     'epochs': [35],
     'batch_size': [4 ,8, 16, 32, 64, 128, 256, 512, 1024, 2048],
     'learning_rate_type': ['constant', 'cosine_decay'], # implement percentage weighting
     'learning_rate': [0.1, 0.01, 0.001, 0.0001, 0.00001],
+>>>>>>> fbc8b0b9fa5f4ad836677f8ceafe1a0e5484fc41
     'patience': [7],
     'weight_initialisation': ['noisy-student'],
     'optimiser': ['sgd', 'adam'],
