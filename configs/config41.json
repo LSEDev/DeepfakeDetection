@@ -1,18 +1,18 @@
 {
     "architecture": "efficientnet",
     "epochs": 30,
-    "batch_size": 8,
-    "learning_rate_type": "constant",
-    "learning_rate": 1e-05,
-    "weight_decay": 0.01,
+    "batch_size": 16,
+    "learning_rate_type": "cosine_decay",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.1,
     "patience": 7,
     "weight_initialisation": "noisy-student",
     "optimiser": "adam",
-    "momentum": 0.99,
+    "momentum": 0.0,
     "nesterov": "True",
-    "label_smoothing": 0.01,
+    "label_smoothing": 0.0,
     "dropout": 0.2,
     "target_size": 224,
     "class_weights": "True",
-    "warmup_epochs": 2
+    "warmup_epochs": 0
 }

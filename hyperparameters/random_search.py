@@ -18,11 +18,10 @@ choice([0, 0.9, 0.99], 1, p=[0.2,0.7,0.1])
 
 param_grid = {
     'architecture': ['efficientnet'],
-    'epochs': [35],
-    'batch_size': [4 ,8, 16, 32, 64, 128, 256, 512, 1024, 2048],
-    'learning_rate_type': ['constant', 'cosine_decay'], # implement percentage weighting
-    'learning_rate': [0.1, 0.01, 0.001, 0.0001, 0.00001],
-    'weight_decay':[0, 1e-3, 1e-4, 1e-5],
+    'epochs': [30],
+    'learning_rate_type': ['constant', 'cosine_decay'], 
+    'learning_rate': [0.01, 0.001, 0.0001, 0.00001],
+    'weight_decay':[0, 1e-1, 1e-2, 1e-4],
     'patience': [7],
     'weight_initialisation': ['noisy-student'],
     'optimiser': ['sgd', 'adam'],
@@ -31,8 +30,8 @@ param_grid = {
     'label_smoothing': [0, 0.01, 0.05],
     'dropout': [0, 0.2, 0.5],
     'target_size': [224],
-    'class_weights': ['True', 'False'],
-    'warmup_epochs': [3,5,7]
+    'class_weights': ['True'],
+    'warmup_epochs': [0, 2, 4]
 }
 
 
@@ -47,19 +46,16 @@ def random_search(param_grid, max_evals=200):
     for i in range(max_evals):
         
         # Choose random hyperparameters
-# =============================================================================
-#         hyperparameters = {k: random.sample(v, 1)[0] for k, v in param_grid.items()}
-# =============================================================================
         hyperparameters = {}
         for k, v in param_grid.items():
             if k=='batch_size':
-                hyperparameters[k] = choice(v, 1, p=[0.06]+[0.11]*8+[0.06])[0]
+                hyperparameters[k] = choice(v, 1, p=[0.15, 0.3, 0.25, 0.25, 0.05])[0]
             elif k=='learning_rate':
-                hyperparameters[k] = choice(v, 1, p=[0.08]+[0.23]*4)[0]
+                hyperparameters[k] = choice(v, 1, p=[0.05, 0.1, 0.45, 0.4])[0]
             elif k=='nesterov':
-                hyperparameters[k] = choice(v, 1, p=[0.7, 0.3])[0]
-            elif k=='class_weights':
-                hyperparameters[k] = choice(v, 1, p=[0.95, 0.05])[0]
+                hyperparameters[k] = choice(v, 1, p=[0.9, 0.1])[0]
+            elif k=='optimiser':
+                hyperparameters[k] = choice(v, 1, p=[0.8, 0.2])[0]
             
             else:
                 hyperparameters[k] = choice(v, 1)[0]
@@ -77,6 +73,8 @@ def random_search(param_grid, max_evals=200):
 
         with open('../configs/config' + str(i) + '.json', 'w', encoding='utf-8') as file:
             file.write(json_params)
+    
+    results.to_csv('../configs/config_df.csv')
         
     return results 
 
@@ -88,4 +86,4 @@ def sort(results):
     return results
 
 
-random_search(param_grid, max_evals = 3)
+random_search(param_grid, max_evals = 100)

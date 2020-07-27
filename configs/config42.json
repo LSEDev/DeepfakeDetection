@@ -7,12 +7,12 @@
     "weight_decay": 0.01,
     "patience": 7,
     "weight_initialisation": "noisy-student",
-    "optimiser": "adam",
+    "optimiser": "sgd",
     "momentum": 0.99,
     "nesterov": "True",
-    "label_smoothing": 0.01,
-    "dropout": 0.2,
+    "label_smoothing": 0.05,
+    "dropout": 0.5,
     "target_size": 224,
     "class_weights": "True",
-    "warmup_epochs": 2
+    "warmup_epochs": 4
 }

@@ -2,17 +2,17 @@
     "architecture": "efficientnet",
     "epochs": 30,
     "batch_size": 16,
-    "learning_rate_type": "cosine_decay",
+    "learning_rate_type": "constant",
     "learning_rate": 0.0001,
     "weight_decay": 0.0001,
     "patience": 7,
     "weight_initialisation": "noisy-student",
     "optimiser": "sgd",
-    "momentum": 0.99,
-    "nesterov": "True",
-    "label_smoothing": 0.0,
+    "momentum": 0.0,
+    "nesterov": "False",
+    "label_smoothing": 0.05,
     "dropout": 0.5,
     "target_size": 224,
     "class_weights": "True",
-    "warmup_epochs": 2
+    "warmup_epochs": 4
 }
