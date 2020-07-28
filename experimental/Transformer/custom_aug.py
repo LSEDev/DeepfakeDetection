@@ -97,40 +97,9 @@ def joint_function(x):
     # No augmentations with probability (1/5)
     #############################################################
     chance = np.random.random()
-    if chance <= 1/5:
+    if chance <= 3/5:
         return x
-    #############################################################
     
-    # DEEPAUGMENT'S OPTIMAL POLICY (2/5)
-    #############################################################
-    elif chance <= 3/5:
-    # either a colour-based double augmentation or one out of four,
-    # which all consist of one geometry based and one noise-based
-    # augmentations
-    # all with equal probability of 8%
-    
-        # Colour-based
-        if np.random.random() <= 1/5:
-            x = perform_gamma_contrast(x)
-            x = perform_add_to_hue_and_saturation(x)
-        
-        # combine one noise-based and one geometry-based method
-        else:
-        
-            # noise
-            if np.random.random() <= 1/2:
-                x = perform_coarse_salt_and_pepper(x)
-            else:
-                x = perform_additive_gaussian_noise(x)
-
-            # geometry-based methods
-            if np.random.random() <= 1/2:
-                x = perform_crop(x)
-            else:
-                x = perform_elastic_transform(x)
-    #############################################################
-    
-    # ADDITIONAL AUGMENTATIONS (2/5)
     #############################################################
     else:
     # secondary transformations all with equal probability 6.67%
