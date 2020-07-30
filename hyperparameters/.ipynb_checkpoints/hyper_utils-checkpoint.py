@@ -178,6 +178,16 @@ class WarmUpCosineDecayScheduler(tf.keras.callbacks.Callback):
                                       warmup_learning_rate=self.warmup_learning_rate,
                                       warmup_steps=self.warmup_steps,
                                       hold_base_rate_steps=self.hold_base_rate_steps)
+#         print('\nBatch %05d: setting learning '
+#               'rate to %s.' % (self.global_step + 1, lr))
+        
+    def on_epoch_begin(self, epoch, logs=None):
+        lr = cosine_decay_with_warmup(global_step=self.global_step,
+                                      learning_rate_base=self.learning_rate_base,
+                                      total_steps=self.total_steps,
+                                      warmup_learning_rate=self.warmup_learning_rate,
+                                      warmup_steps=self.warmup_steps,
+                                      hold_base_rate_steps=self.hold_base_rate_steps)
         print('\nBatch %05d: setting learning '
               'rate to %s.' % (self.global_step + 1, lr))
 
