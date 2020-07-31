@@ -1,10 +1,10 @@
 import tensorflow as tf
-from tensorflow import keras
 from tensorflow.keras import layers
 
 class MultiHeadSelfAttention(layers.Layer):
-    def __init__(self, embed_dim, num_heads=8):
-        super(MultiHeadSelfAttention, self).__init__()
+    def __init__(self, embed_dim, num_heads=8,**kwargs):
+        super(MultiHeadSelfAttention, self).__init__(**kwargs)
+        
         self.embed_dim = embed_dim
         self.num_heads = num_heads
         if embed_dim % num_heads != 0:
@@ -58,7 +58,7 @@ class MultiHeadSelfAttention(layers.Layer):
     
     def get_config(self):
 
-        config = super().get_config().copy()
+        config = super(MultiHeadSelfAttention, self).get_config().copy()
         config.update({
             'embed_dim': self.embed_dim,
             'num_heads': self.num_heads,
@@ -71,10 +71,10 @@ class MultiHeadSelfAttention(layers.Layer):
         return config
     
 class TransformerBlock(layers.Layer):
-    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
-        super(TransformerBlock, self).__init__()
+    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1, **kwargs):
+        super(TransformerBlock, self).__init__(**kwargs)
         self.att = MultiHeadSelfAttention(embed_dim, num_heads)
-        self.ffn = keras.Sequential(
+        self.ffn = tf.keras.Sequential(
             [layers.Dense(ff_dim, activation="relu"), layers.Dense(embed_dim),]
         )
         self.layernorm1 = layers.LayerNormalization(epsilon=1e-6)
@@ -92,7 +92,7 @@ class TransformerBlock(layers.Layer):
     
     def get_config(self):
 
-        config = super().get_config().copy()
+        config = super(TransformerBlock, self).get_config().copy()
         config.update({
             'att': self.att,
             'ffn': self.ffn,
