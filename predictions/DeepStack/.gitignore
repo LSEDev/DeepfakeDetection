@@ -1,0 +1,6 @@
+*csv
+*premodels/*
+*pycache*
+MANIFEST
+cifar*
+*.ipynb
