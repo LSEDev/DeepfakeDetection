@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor
 import os
 import joblib
 import glob
-from deepstack.base import Member
+from base import Member
 from keras.utils import to_categorical
 
 
@@ -279,12 +279,20 @@ class StackEnsemble(Ensemble):
             min_flag = not(maximize) and model_score < best_score
             if max_flag or min_flag:
                 best_score = model_score
-            text = member.name + " - {}: {:1.4f}".format(
-                metric.__name__, model_score)
+            if metric=='acc':
+                text = member.name + " - {}: {:1.4f}".format(
+                    'Test Accuracy', model_score) 
+            else:
+                text = member.name + " - {}: {:1.4f}".format(
+                    metric.__name__, model_score)
             print(text)
         ensemble_score = _calculate_metric(val_classes, probabilities_val, metric)
-        print("StackEnsemble {}: {:1.4f}".format(
-            metric.__name__, ensemble_score))
+        if metric=='acc':
+            print("StackEnsemble {}: {:1.4f}".format(
+                'Test Accuracy', ensemble_score))
+        else:
+            print("StackEnsemble {}: {:1.4f}".format(
+                metric.__name__, ensemble_score))
         return ensemble_score
 
     def _get_X(self, attrname):
@@ -385,14 +393,33 @@ class StackEnsemble(Ensemble):
 
 
 def _calculate_metric(y_true, y_pred, metric=None):  # TODO: Refactor
+    z=0
+    if metric == 'acc':
+#         print(y_true, y_pred)
+        if y_pred.ndim>1:
+            pairs = list(zip(np.argmax(y_pred, axis=1), y_true))
+            for pred, true in pairs:
+                if pred==true:
+                    z+=1
+            return z/len(y_true)
+        else:
+            pairs = list(zip([1 if p>0.5 else 0 for p in y_pred], y_true))
+            for pred, true in pairs:
+                if pred==true:
+                    z+=1
+            return z/len(y_true)
+
+    
     if metric is None:
         metric = metrics.roc_auc_score
     try:
+#         print(y_pred)
         return metric(y_true, y_pred)
     except ValueError:
         pass
 
     try:
+#         print(y_pred)
         y_true_cat = to_categorical(y_true)
         return metrics.roc_auc_score(y_true_cat, y_pred)
     except ValueError:
@@ -405,4 +432,8 @@ def _calculate_metric(y_true, y_pred, metric=None):  # TODO: Refactor
     y_p = y_pred
     if y_pred.ndim > 1:
         y_p = np.argmax(y_pred, axis=1)
+#     print(y_t, y_p)
     return metric(y_t, y_p)
+
+def r():
+    pass

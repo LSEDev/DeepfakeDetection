@@ -145,7 +145,7 @@ class KerasMember(Member):
             self._test_datatuple(batches)
             return self.model.predict(batches[0], workers = 8)
         return self.model.predict(
-            batches, steps=(batches.n // batches.batch_size) + 1, verbose=1, , workers = 8)
+            batches, steps=(batches.n // batches.batch_size) + 1, verbose=1, workers = 8)
 
     def _calculate_val_predictions(self, val_batches):
         if type(val_batches) is tuple:
