@@ -1,6 +1,6 @@
 # Deepfake Detection
 
-Deepfakes, videos or images containing a modified or swapped face produced by a deep neural network, are an increasing and unprecedented threat. Online deepfake content is doubling every six months. As of June 2020, approximately 50,000 deepfake videos were identified by \cite{ajder2019state}. An overwhelming 63\% of all deepfake videos online on June 2020 contained pornographic content. The victims suffer loss of professional and educational opportunities, stalking, psychological damage and defamation \citep{citron2014criminalizing}. An additional threat of deepfakes presents itself as undetected political deepfake material, which is capable of severe damage in election campaigns as well as in financial markets (Nguyen et al., \citeyear{nguyen2019deep}). The increasing prevalence of deepfakes results in a society suspicious of online visual content. If deepfake creation becomes more accessible and harder to detect, all online images and videos could lose credibility. 
+Deepfakes, videos or images containing a modified or swapped face produced by a deep neural network, are an increasing and unprecedented threat. Online deepfake content is doubling every six months. As of June 2020, approximately 50,000 deepfake videos were identified by Adjer et al. (2020). An overwhelming 63% of all deepfake videos online on June 2020 contained pornographic content. The victims suffer loss of professional and educational opportunities, stalking, psychological damage and defamation. An additional threat of deepfakes presents itself as undetected political deepfake material, which is capable of severe damage in election campaigns as well as in financial markets (Nguyen et al., 2019). The increasing prevalence of deepfakes results in a society suspicious of online visual content. If deepfake creation becomes more accessible and harder to detect, all online images and videos could lose credibility. 
 
 This GitHub supports our Capstone Project titled **'Deepfake Detection: Building the Optimal Model'**, submitted for the MSc Data Science from the London School of Economics, carried out in conjunction with SAMSUNG. 
 
@@ -22,6 +22,8 @@ All code for temporal models is within /transformer/.
 
 ## Overarching purpose
 The final model is a combination of different configs within /configs/, and finalised within /ensembles/. The /predictions/ notebook is used to obtain video accuracies for almost all methods. The final pipeline looks as follows:
+
+![Final pipeline](https://github.com/lse-st498/DeepFake-2019-20/blob/master/final-graphic.png)
 
 
 
