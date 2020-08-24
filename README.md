@@ -25,5 +25,15 @@ The final model is a combination of different configs within /configs/, and fina
 
 ![Final pipeline](https://github.com/lse-st498/DeepFake-2019-20/blob/master/final-graphic.png)
 
+The final accuracies on the *FaceForensics++* raw and low quality test set are as follows:
+
+ | Best model FF++ | Top model | Ensemble
+------------ | ------------- | ------------ | -------------
+Raw data | **0.9926** | 0.9900 | 0.9900 
+Low quality data | 0.8100 | 0.8457 | **0.8571** 
+
+
+It is important to note that there exists a gap between academic research related to deepfake detection and its real-life applications. Most current face manipulations are easily detected under controlled conditions, that is, when fake detectors are evaluated in the same conditions they are trained for. Academic literature, including this paper, often achieves extremely high test accuracies. Such academic scenarios are, however, not very realistic as they do not replicate the social media environment where manipulated content is typically shared. Deepfake videos on social media have often undergone heavy transformations, with different compression levels, resizing, noise and more. DFDC proves this, as the best model only achieves a 65\% test accuracy on an unseen, private test set, which simulates a real-world scenario. With this nuance in mind, further research should focus on detectors' ability to accurately spot deepfakes under a larger variety of settings, which align more closely with the social media environment. This new focus will pave the path towards solving an issue that is likely to become one of the most pressing problems of our time. 
+
 
 
