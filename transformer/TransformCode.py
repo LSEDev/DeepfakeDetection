@@ -1,6 +1,8 @@
 import tensorflow as tf
 from tensorflow.keras import layers
 
+# INSPIRED BY https://github.com/keras-team/keras-io/blob/master/examples/nlp/text_classification_with_transformer.py
+
 class MultiHeadSelfAttention(layers.Layer):
     def __init__(self, embed_dim, num_heads=8,**kwargs):
         super(MultiHeadSelfAttention, self).__init__(**kwargs)
@@ -102,16 +104,3 @@ class TransformerBlock(layers.Layer):
             'dropout2': self.dropout2,
         })
         return config
-    
-class TokenAndPositionEmbedding(layers.Layer):
-    def __init__(self, maxlen, vocab_size, embed_dim):
-        super(TokenAndPositionEmbedding, self).__init__()
-        self.token_emb = layers.Embedding(input_dim=vocab_size, output_dim=embed_dim)
-        self.pos_emb = layers.Embedding(input_dim=maxlen, output_dim=embed_dim)
-
-    def call(self, x):
-        maxlen = tf.shape(x)[-1]
-        positions = tf.range(start=0, limit=maxlen, delta=1)
-        positions = self.pos_emb(positions)
-        x = self.token_emb(x)
-        return x + positions
