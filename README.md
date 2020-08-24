@@ -27,10 +27,9 @@ The final model is a combination of different configs within /configs/, and fina
 
 The final accuracies on the *FaceForensics++* raw and low quality test set are as follows:
 
-Empty | Best model FF++ | Top model | Ensemble
+Data Type | Best model FF++ | Top model | Ensemble
 ------------ | ------------- | ------------ | -------------
 Raw data | **0.9926** | 0.9900 | 0.9900 
------------- | ------------- | ------------ | -------------
 Low quality data | 0.8100 | 0.8457 | **0.8571** 
 
 
