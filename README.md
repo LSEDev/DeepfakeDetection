@@ -11,13 +11,13 @@ The paper's overarching purpose is to develop an optimal model for deepfake dete
 2. Determine whether data augmentation and its optimisation as well as the correct hyperparameter selection can improve model performance and generalisation.
 3. Determine whether temporal model architectures produce superior results when compared to frame-based architectures and their corresponding aggregation techniques.
 
-## Objective 1.
+## Objective 1
 To achieve this, the results were reproduced within /training/baseline_netorks.ipynb.
 
-## Objective 2.
+## Objective 2
 For hyperparameters, most analysis is performed within /hyperparameters/. For data augmentation, most analysis is performed within /augmentations/. Simple features, a peculiar type of augmentation based on https://github.com/cc-hpc-itwm/DeepFakeDetection is within /simplefeatures/.
 
-## Objective 3.
+## Objective 3
 All code for temporal models is within /transformer/.
 
 ## Overarching purpose
