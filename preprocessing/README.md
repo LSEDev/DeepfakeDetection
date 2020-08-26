@@ -1,1 +1,1 @@
-Contains all configurations to be run in the random search as well as a consolidated csv of these configurations.
+Contains all code regarding our pre-processing pipeline (including resturcturing data to be in the appropriate format for .flow_from_directory method).
