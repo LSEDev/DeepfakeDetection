@@ -1,0 +1,1 @@
+Contains all configurations to be run in the random search as well as a consolidated csv of these configurations.
