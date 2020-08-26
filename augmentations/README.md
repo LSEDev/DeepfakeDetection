@@ -1,4 +1,4 @@
-\cutout-experiment contains for information-dropping methods (excluding training)
+\cutout-experiment contains code for information-dropping methods (excluding training)
 
 \deepaugment-master and \deepaugment_updated are regarding our tailored DeepAugment
 
