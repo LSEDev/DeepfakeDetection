@@ -1,6 +1,6 @@
 Contains all code regarding our pre-processing pipeline (including resturcturing data to be in the appropriate format for .flow_from_directory method).
 
-The stages of pre-processing pipeline are as follows:
+The stages of the pre-processing pipeline are as follows:
 
 1. Download FaceForensics++ videos
 2. Extract every fifteenth frame from each video
