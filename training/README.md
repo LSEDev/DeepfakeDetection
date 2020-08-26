@@ -1,0 +1,1 @@
+This folder contains all core scripts used to train networks given a set of configurations.
