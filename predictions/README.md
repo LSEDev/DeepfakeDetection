@@ -1,1 +1,1 @@
-Contains all configurations to be run in the random search as well as a consolidated csv of these configurations.
+Contains notebooks used to obtain validation and test accuracies on FaceForensics++ video dataset. The notebooks include four image to video aggregation methods and required information-handing techniques to produce final accuracy values.
