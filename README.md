@@ -23,7 +23,7 @@ All code for temporal models is within /transformer/.
 ## Overarching purpose
 The final model is a combination of different configs within /configs/, and finalised within /ensembles/. The /predictions/ notebook is used to obtain video accuracies for almost all methods. The final pipeline looks as follows:
 
-![Final pipeline](https://github.com/lse-st498/DeepFake-2019-20/blob/master/final-graphic.png)
+![Final pipeline](https://github.com/LSEDev/DeepfakeDetection/blob/master/final-graphic.png)
 
 The final accuracies on the *FaceForensics++* raw and low quality test set are as follows:
 
